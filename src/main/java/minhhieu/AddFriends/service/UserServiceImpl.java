@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import minhhieu.AddFriends.dto.AddFriendDto;
 import minhhieu.AddFriends.dto.CreateUserDto;
 import minhhieu.AddFriends.dto.UpdateUserDto;
 import minhhieu.AddFriends.dto.UserDto;
+import minhhieu.AddFriends.model.Friend;
 import minhhieu.AddFriends.model.User;
 import minhhieu.AddFriends.repository.UserRepository;
 import minhhieu.AddFriends.util.UserStatus;
@@ -26,8 +27,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<UserDto> findAllDto() {
-		return repository.findAllUserDto();
+	public List<User> findAllDto() {
+		return repository.findAllUser();
 	}
 
 	@Override
@@ -63,15 +64,6 @@ public class UserServiceImpl implements UserService {
 
 //	@Override
 //	@Transactional
-//	public User addFriend(AddFriendDto dto) {
-//		User user = repository.getById(dto.getUserId());
-//		Friend friend = friendRepository.getById(dto.getFriendId());
-//		
-//		return user.addFriend(friend);
-//	}
-//	
-//	@Override
-//	@Transactional
 //	public User updateNickname(ChangeNicknameDto dto) {
 //		User user = repository.getById(dto.getUserId());
 //		Friend friend = friendRepository.getById(dto.getFriendId());
@@ -94,6 +86,23 @@ public class UserServiceImpl implements UserService {
 	public boolean isTakenEmail(String email) {
 		return repository.countByEmail(email) >= 1;
 	}
+	
+	@Transactional
+	@Override
+	public User addFriendId(AddFriendDto dto, int userId2) {
+		User myUser = repository.getById(userId2);
+		User targerFriend = repository.getById(dto.getFriendUserID());
+		String nickName = dto.getNickName();
+		
+		myUser.addFriend(targerFriend, nickName);
+		
+		return repository.save(myUser);
+	}
+	
+
+	
+
+	
 
 	
 

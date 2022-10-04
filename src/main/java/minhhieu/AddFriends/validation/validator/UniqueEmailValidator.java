@@ -8,7 +8,7 @@ import minhhieu.AddFriends.util.ValidatorUtil;
 import minhhieu.AddFriends.validation.annotation.UniqueEmail;
 
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String>{
-	private String message;
+	
 	private UserService service;
 	
 	public UniqueEmailValidator(UserService userService) {
@@ -17,7 +17,7 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 	
 	@Override
 	public void initialize(UniqueEmail constraintAnnotation) {
-		message = constraintAnnotation.message();
+		
 	}
 	
 	@Override

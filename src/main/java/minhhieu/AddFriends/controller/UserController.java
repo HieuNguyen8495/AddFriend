@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import minhhieu.AddFriends.dto.AddFriendDto;
 import minhhieu.AddFriends.dto.CreateUserDto;
 import minhhieu.AddFriends.dto.UpdateUserDto;
 import minhhieu.AddFriends.dto.UserDto;
@@ -35,8 +36,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/find")
-	public List<UserDto> findAllUsers(){
-		List<UserDto> users = service.findAllDto();
+	public List<User> findAllUsers(){
+		List<User> users = service.findAllDto();
 		return users;
 	}
 	
@@ -57,11 +58,11 @@ public class UserController {
 		service.deleteById(userId);
 	}
 	
-//	@PostMapping("/add-friend")
-//	public User addFriendToUser(@Valid @RequestBody AddFriendDto dto) {
-//		User userFriend = service.addFriend(dto);
-//  		  return userFriend; 
-//	}
+	@PostMapping("/{user-id}/friends")
+	public User addFriendToUser(@PathVariable("user-id") int userId, @Valid @RequestBody AddFriendDto dto) {
+		User userFriend = service.addFriendId(dto, userId);
+  		  return userFriend; 
+	}
 	
 //	@PostMapping("/change-nickname")
 //	public User updatedNickname(@Valid @RequestBody ChangeNicknameDto dto) {

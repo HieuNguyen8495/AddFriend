@@ -5,8 +5,6 @@ import java.util.Set;
 
 import minhhieu.AddFriends.util.UserStatus;
 
-
-
 public interface UserDto {
 	public int getId();
 	

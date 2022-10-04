@@ -7,10 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -22,17 +24,23 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "FriendList")
-public class FriendList {
+ public class Friend {
 	@Id
-	@GeneratedValue
-	private int friendUserID;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
-	private int userID;
+	@OneToOne
+	@JoinColumn(referencedColumnName = "id")
+	private User friendUser;
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id")
+	private User user;
 	
 	private String nickName;
 	
-	@ManyToMany(mappedBy = "friendList")
-	private Set<User> groups = new HashSet<>();
-	
+	public Friend() {
+		
+	}
 
 }

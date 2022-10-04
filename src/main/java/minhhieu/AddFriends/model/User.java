@@ -33,8 +33,8 @@ import lombok.Setter;
 import minhhieu.AddFriends.util.UserStatus;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Getter
 @Setter
+@Getter
 @Entity
 @Table(name = "Users")
 public class User {
@@ -68,23 +68,25 @@ public class User {
 	private String email;
 	
 	@JsonIgnore
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable( name = "User_Friend_ID",
-			    joinColumns = @JoinColumn(name = "FriendUser_id"),
-			    inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private Set<FriendList> friendList = new HashSet<>();
-	     
-	
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+						  fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Friend> friendList = new HashSet<>();
 	
 
-//	public User addFriend(Friend friend) {
-//		FriendList fl = new FriendList(this, friend);
-//		friends.add(fl);
-//		
-//		friend.getUsers().add(fl);
-//		return this;
-//	}
-//
+	public void addFriend(User friendUser,String nickName) {
+		Friend fr = new Friend();
+		fr.setUser(this); //this.Equals(user)
+		fr.setFriendUser(friendUser);
+		fr.setNickName(nickName);
+		
+		friendList.add(fr);
+	}
+
+	
+	
+	
+	
+	
 //	public User changeNickname(Friend friend,ChangeNicknameDto dto) {
 ////		friends.add(friend);
 //		friend.setNickName(dto.getNickName());
