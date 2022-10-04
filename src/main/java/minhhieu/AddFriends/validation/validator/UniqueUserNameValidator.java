@@ -8,7 +8,7 @@ import minhhieu.AddFriends.util.ValidatorUtil;
 import minhhieu.AddFriends.validation.annotation.UniqueUserName;
 
 public class UniqueUserNameValidator implements ConstraintValidator<UniqueUserName, String> {
-	private String message;
+	
 	private UserService service;
 	
 	public UniqueUserNameValidator(UserService userService) {
@@ -16,7 +16,7 @@ public class UniqueUserNameValidator implements ConstraintValidator<UniqueUserNa
 	}
 	@Override
 	public void initialize(UniqueUserName constraintAnnotation) {
-		message = constraintAnnotation.message();
+		
 	}
 	@Override
 	public boolean isValid(String userName, ConstraintValidatorContext context) {
@@ -28,8 +28,7 @@ public class UniqueUserNameValidator implements ConstraintValidator<UniqueUserNa
 		if(!isTaken)
 			return true;
 		
-		ValidatorUtil.addError(context, userName);
-			return false;
+		return false;
 	}
 
 }

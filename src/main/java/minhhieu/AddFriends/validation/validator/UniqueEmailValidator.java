@@ -30,7 +30,6 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 		if(!isTaken)
 			return true;
 		
-		ValidatorUtil.addError(context, email);	
 		return false;
 	}
 
