@@ -81,15 +81,7 @@ public class User {
 		
 		friendList.add(fr);
 	}
+	
+	
 
-	
-	
-	
-	
-	
-//	public User changeNickname(Friend friend,ChangeNicknameDto dto) {
-////		friends.add(friend);
-//		friend.setNickName(dto.getNickName());
-//		return this;
-//	}
 }

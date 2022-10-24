@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import minhhieu.AddFriends.dto.AddFriendDto;
+import minhhieu.AddFriends.dto.ChangeNickNameDto;
 import minhhieu.AddFriends.dto.CreateUserDto;
 import minhhieu.AddFriends.dto.UpdateUserDto;
 import minhhieu.AddFriends.dto.UserDto;
+import minhhieu.AddFriends.model.Friend;
 import minhhieu.AddFriends.model.User;
 import minhhieu.AddFriends.service.UserService;
 
@@ -64,9 +67,9 @@ public class UserController {
   		  return userFriend; 
 	}
 	
-//	@PostMapping("/change-nickname")
-//	public User updatedNickname(@Valid @RequestBody ChangeNicknameDto dto) {
-//		User updateNickname = service.updateNickname(dto);
-//		return updateNickname;
-//	}
+	@PutMapping("/change")
+	public Friend updatedNickname(@Valid @RequestBody ChangeNickNameDto dto) {
+		Friend updateNickname = service.updateNickname (dto);
+		return updateNickname;
+	}
 }

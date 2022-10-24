@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import minhhieu.AddFriends.dto.AddFriendDto;
+import minhhieu.AddFriends.dto.ChangeNickNameDto;
 import minhhieu.AddFriends.dto.CreateUserDto;
 import minhhieu.AddFriends.dto.UpdateUserDto;
 import minhhieu.AddFriends.dto.UserDto;
 import minhhieu.AddFriends.model.Friend;
 import minhhieu.AddFriends.model.User;
+import minhhieu.AddFriends.repository.FriendRepository;
 import minhhieu.AddFriends.repository.UserRepository;
 import minhhieu.AddFriends.util.UserStatus;
 
@@ -19,10 +21,11 @@ import minhhieu.AddFriends.util.UserStatus;
 @Service
 public class UserServiceImpl implements UserService {
 	private UserRepository repository;
+	private FriendRepository repo;
 	
-	
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserServiceImpl(UserRepository userRepository,FriendRepository friendRepository) {
 		repository = userRepository;
+		repo = friendRepository;
 		
 	}
 	
@@ -62,14 +65,6 @@ public class UserServiceImpl implements UserService {
 		repository.deleteById(userId);
 	}
 
-//	@Override
-//	@Transactional
-//	public User updateNickname(ChangeNicknameDto dto) {
-//		User user = repository.getById(dto.getUserId());
-//		Friend friend = friendRepository.getById(dto.getFriendId());
-//		
-//		return  user.changeNickname(friend, dto);
-//	}
 
 	@Override
 	public boolean isExistedId(Integer userId) {
@@ -100,12 +95,19 @@ public class UserServiceImpl implements UserService {
 	}
 	
 
-	
+    @Transactional
+	@Override
+	public Friend updateNickname(ChangeNickNameDto dto) {
+   		Friend newNickName = repo.getById(dto.getId());
+   		
+   		newNickName.setNickName(dto.getNewNickName());
+   		
+		return repo.save(newNickName);
+	}
+
+}	
 
 	
 
 	
-
 	
-	
-}

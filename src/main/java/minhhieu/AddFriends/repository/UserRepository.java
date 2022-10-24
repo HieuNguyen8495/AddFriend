@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
 	int countByEmail(String email);
 
-	User getById(int userID);
+
 	
 	
 	

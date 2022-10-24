@@ -7,9 +7,11 @@ import javax.validation.Valid;
 import org.springframework.data.jpa.repository.Query;
 
 import minhhieu.AddFriends.dto.AddFriendDto;
+import minhhieu.AddFriends.dto.ChangeNickNameDto;
 import minhhieu.AddFriends.dto.CreateUserDto;
 import minhhieu.AddFriends.dto.UpdateUserDto;
 import minhhieu.AddFriends.dto.UserDto;
+import minhhieu.AddFriends.model.Friend;
 import minhhieu.AddFriends.model.User;
 
 public interface UserService {
@@ -28,9 +30,10 @@ public interface UserService {
 
 	boolean isTakenEmail(String email);
 
-	User addFriendId(AddFriendDto userID, int userId);
+	User addFriendId(AddFriendDto dto, int userId);
 
-//	User updateNickname(ChangeNicknameDto dto);
+	Friend updateNickname(ChangeNickNameDto dto);
+
 
 
 

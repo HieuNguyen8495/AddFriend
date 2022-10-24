@@ -3,6 +3,7 @@ package minhhieu.AddFriends.dto;
 import java.util.Date;
 import java.util.Set;
 
+import minhhieu.AddFriends.model.Friend;
 import minhhieu.AddFriends.util.UserStatus;
 
 public interface UserDto {
