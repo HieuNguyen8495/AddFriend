@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import minhhieu.AddFriends.dto.AddFriendDto;
 import minhhieu.AddFriends.dto.ChangeNickNameDto;
 import minhhieu.AddFriends.dto.CreateUserDto;
+import minhhieu.AddFriends.dto.FriendDto;
 import minhhieu.AddFriends.dto.UpdateUserDto;
 import minhhieu.AddFriends.dto.UserDto;
 import minhhieu.AddFriends.model.Friend;
@@ -18,9 +19,9 @@ public interface UserService {
 	
 	List<User> findAllDto();
 
-	User addNewUser(CreateUserDto userDto);
+	UserDto addNewUser(CreateUserDto userDto);
 
-	User updateUser(UpdateUserDto updateUserDto, int id);
+	UserDto updateUser(UpdateUserDto updateUserDto, int id);
 
 	void deleteById(int userId);
 
@@ -30,9 +31,9 @@ public interface UserService {
 
 	boolean isTakenEmail(String email);
 
-	User addFriendId(AddFriendDto dto, int userId);
+	UserDto addFriendId(AddFriendDto dto, int userId);
 
-	Friend updateNickname(ChangeNickNameDto dto);
+	FriendDto updateNickname(ChangeNickNameDto dto);
 
 
 

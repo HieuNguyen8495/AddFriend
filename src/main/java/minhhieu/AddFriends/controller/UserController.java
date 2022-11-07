@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import minhhieu.AddFriends.dto.AddFriendDto;
 import minhhieu.AddFriends.dto.ChangeNickNameDto;
 import minhhieu.AddFriends.dto.CreateUserDto;
+import minhhieu.AddFriends.dto.FriendDto;
 import minhhieu.AddFriends.dto.UpdateUserDto;
 import minhhieu.AddFriends.dto.UserDto;
 import minhhieu.AddFriends.model.Friend;
@@ -45,14 +46,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/add")
-	public User addUser(@Valid @RequestBody CreateUserDto userDto){
-		User addUser = service.addNewUser(userDto);
-		return addUser;
+	public UserDto addUser(@Valid @RequestBody CreateUserDto userDto){
+		UserDto addUser = service.addNewUser(userDto);
+		return  addUser; 
 	} 
 	
 	@PutMapping("/update")
-	public User updateUser(@Valid @RequestBody UpdateUserDto updateUserDto) {
-		User updateUser = service.updateUser(updateUserDto , updateUserDto.getId());
+	public UserDto updateUser(@Valid @RequestBody UpdateUserDto updateUserDto) {
+		UserDto updateUser = service.updateUser(updateUserDto , updateUserDto.getId());
 			return updateUser;
 	}
 	
@@ -62,14 +63,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/{user-id}/friends")
-	public User addFriendToUser(@PathVariable("user-id") int userId, @Valid @RequestBody AddFriendDto dto) {
-		User userFriend = service.addFriendId(dto, userId);
+	public UserDto addFriendToUser(@PathVariable("user-id") int userId, @Valid @RequestBody AddFriendDto dto) {
+		UserDto userFriend = service.addFriendId(dto, userId);
   		  return userFriend; 
 	}
 	
 	@PutMapping("/change")
-	public Friend updatedNickname(@Valid @RequestBody ChangeNickNameDto dto) {
-		Friend updateNickname = service.updateNickname (dto);
+	public FriendDto updatedNickname(@Valid @RequestBody ChangeNickNameDto dto) {
+		FriendDto updateNickname = service.updateNickname (dto);
 		return updateNickname;
 	}
 }
