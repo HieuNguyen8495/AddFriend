@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -35,23 +37,26 @@ import minhhieu.AddFriends.service.UserService;
 public class UserController {
 	private UserService service;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	public UserController(UserService userService) {
 		service = userService;
 	}
 	
-	@GetMapping("/find")
-	public List<User> findAllUsers(){
-		List<User> users = service.findAllDto();
-		return users;
+	@GetMapping
+	public List<UserDto> findAllUsers(){
+		List<UserDto> userDtos = service.findAllUsers();
+		return userDtos;
 	}
 	
-	@PostMapping("/add")
+	@PostMapping
 	public UserDto addUser(@Valid @RequestBody CreateUserDto userDto){
 		UserDto addUser = service.addNewUser(userDto);
 		return  addUser; 
 	} 
 	
-	@PutMapping("/update")
+	@PutMapping
 	public UserDto updateUser(@Valid @RequestBody UpdateUserDto updateUserDto) {
 		UserDto updateUser = service.updateUser(updateUserDto , updateUserDto.getId());
 			return updateUser;
@@ -68,9 +73,9 @@ public class UserController {
   		  return userFriend; 
 	}
 	
-	@PutMapping("/change")
+	@PutMapping("/updatedNickName")
 	public FriendDto updatedNickname(@Valid @RequestBody ChangeNickNameDto dto) {
 		FriendDto updateNickname = service.updateNickname (dto);
-		return updateNickname;
+			return updateNickname;
 	}
 }

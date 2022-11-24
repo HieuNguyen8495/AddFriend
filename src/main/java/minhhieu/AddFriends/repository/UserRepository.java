@@ -13,11 +13,11 @@ import minhhieu.AddFriends.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 		
-//	@Query("SELECT u FROM User u")
-//	List<UserDto> findAllUserDto();
-	
 	@Query("SELECT u FROM User u")
-	List<User> findAllUser();
+	List<UserDto> findAllUserDto();
+	
+//	@Query("SELECT u FROM User u")
+//	List<UserDto> findAllUser();
 	
 	int countByUserName(String userName);
 

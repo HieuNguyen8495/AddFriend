@@ -1,5 +1,6 @@
 package minhhieu.AddFriends.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,118 +18,144 @@ import minhhieu.AddFriends.model.User;
 import minhhieu.AddFriends.repository.FriendRepository;
 import minhhieu.AddFriends.repository.UserRepository;
 import minhhieu.AddFriends.util.UserStatus;
+import springfox.documentation.swagger2.mappers.ModelMapper;
 
 
 @Service
 public class UserServiceImpl implements UserService {
-	private UserRepository repository;
-	private FriendRepository repo;
+	private UserRepository userRepo;
+	private FriendRepository friendRepo;
+	
 	
 	public UserServiceImpl(UserRepository userRepository,FriendRepository friendRepository) {
-		repository = userRepository;
-		repo = friendRepository;
+		userRepo= userRepository;
+		friendRepo = friendRepository;
 		
 	}
 	
 	@Override
-	public List<User> findAllDto() {
-		return repository.findAllUser();
+	public List<UserDto> findAllUsers() {
+		User user = new User();
+		
+		List<UserDto> dtos = new ArrayList();
+		List<User> users = userRepo.findAll();
+		
+					
+		for (User u : users) {
+			UserDto dto = new UserDto();
+			dto.setUserName(u.getUserName());
+			dto.setBirthday(u.getBirthday());
+			dto.setEmail(u.getEmail());
+			dto.setNickName(u.getNickName());
+			
+			dtos.add(dto);
+		}
+		
+		
+		List<UserDto> dto1 = users.stream().map(u -> {
+			UserDto dto = new UserDto();
+			dto.setUserName(u.getUserName());
+			dto.setBirthday(u.getBirthday());
+			dto.setEmail(u.getEmail());
+			dto.setNickName(u.getNickName());
+			return dto;
+		}).toList();
+		
+		return dtos;
+		
+		
 	}
 
 	@Override
 	public UserDto addNewUser(CreateUserDto dto) {
 		User newUser = new User();
 
-        newUser.setUserName(dto.getUserName());
-        newUser.setNickName(dto.getNickName());
-        newUser.setEmail(dto.getEmail());
-        newUser.setBirthday(dto.getBirthday());
-        newUser.setPassword(dto.getPassword());
-        newUser.setConfirmPassword(dto.getConfirmPassword());
-        newUser.setStatus(UserStatus.ACTIVE);
+	        newUser.setUserName(dto.getUserName());
+	        newUser.setNickName(dto.getNickName());
+	        newUser.setEmail(dto.getEmail());
+	        newUser.setBirthday(dto.getBirthday());
+	        newUser.setPassword(dto.getPassword());
+	        newUser.setConfirmPassword(dto.getConfirmPassword());
+	        newUser.setStatus(UserStatus.ACTIVE);
 
-        User savedUser = repository.save(newUser);
+        User savedUser = userRepo.save(newUser);
         
-        UserDto userDto = new UserDto();
-        userDto.setUserName(savedUser.getNickName());
-        userDto.setEmail(savedUser.getEmail());
-        userDto.setNickName(savedUser.getNickName());
-        userDto.setStatus(savedUser.getStatus());
-        userDto.setBirthday(savedUser.getBirthday());
-        
+	        UserDto userDto = new UserDto();
+	        userDto.setUserName(savedUser.getNickName());
+	        userDto.setEmail(savedUser.getEmail());
+	        userDto.setNickName(savedUser.getNickName());
+	        userDto.setStatus(savedUser.getStatus());
+	        userDto.setBirthday(null);
+	        
         return userDto;
 	}
 
 	@Override
 	public UserDto updateUser(UpdateUserDto updateUserDto, int id) {
-		User updateUser = repository.getById(id);
-		
-		updateUser.setUserName(updateUserDto.getUserName());
-		updateUser.setNickName(updateUserDto.getNickName());
-		updateUser.setEmail(updateUserDto.getEmail());
-		
-		User updatedUser = repository.save(updateUser);
+		User updateUser = userRepo.getById(id);
+			updateUser.setUserName(updateUserDto.getUserName());
+			updateUser.setNickName(updateUserDto.getNickName());
+			updateUser.setEmail(updateUserDto.getEmail());
+			
+		User updatedUser = userRepo.save(updateUser);
 		
 		UserDto dto = new UserDto();
-		dto.setUserName(updatedUser.getUserName());
-		dto.setNickName(updatedUser.getNickName());
-		dto.setEmail(updatedUser.getEmail());
+			dto.setUserName(updatedUser.getUserName());
+			dto.setNickName(updatedUser.getNickName());
+			dto.setEmail(updatedUser.getEmail());
 		return  dto;
 	}
 
 	
 	@Override
 	public void deleteById(int userId) {
-		repository.deleteById(userId);
+		userRepo.deleteById(userId);
 	}
 
 
 	@Override
 	public boolean isExistedId(Integer userId) {
-		return repository.existsById(userId);
+		return userRepo.existsById(userId);
 		
 	}
 
 	@Override
 	public boolean isTakenUserName(String userName) {
-		return repository.countByUserName(userName) >= 1;
+		return userRepo.countByUserName(userName) >= 1;
 	}
 
 	@Override
 	public boolean isTakenEmail(String email) {
-		return repository.countByEmail(email) >= 1;
+		return userRepo.countByEmail(email) >= 1;
 	}
 	
 	@Transactional
 	@Override
 	public UserDto addFriendId(AddFriendDto dto, int userId2) {
-		User myUser = repository.getById(userId2);
-		User targetFriend = repository.getById(dto.getFriendUserID());
+		User myUser = userRepo.getById(userId2);
+		User targetFriend = userRepo.getById(dto.getFriendUserID());
 		String nickName = dto.getNickName();
 		
 		myUser.addFriend(targetFriend, nickName);
 		
-		User u = repository.save(myUser);
+		User u = userRepo.save(myUser);
 		
 		UserDto userDto = new UserDto();
-		userDto.setNickName(myUser.getNickName());
-		
+			userDto.setNickName(myUser.getNickName());
 		
 		return userDto;
 	}
-	
 
     @Transactional
 	@Override
 	public FriendDto updateNickname(ChangeNickNameDto dto) {
-   		Friend newNickName = repo.getById(dto.getId());
+   		Friend newNickName = friendRepo.getById(dto.getId());
+   			newNickName.setNickName(dto.getNewNickName());
    		
-   		newNickName.setNickName(dto.getNewNickName());
-   		
-		Friend fr = repo.save(newNickName);
+		Friend fr = friendRepo.save(newNickName);
 		
 		FriendDto friendDto = new FriendDto();
-		friendDto.setNickName(fr.getNickName());
+			friendDto.setNickName(fr.getNickName());
 		
 		return friendDto;
 	}

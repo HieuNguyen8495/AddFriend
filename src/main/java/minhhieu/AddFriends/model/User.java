@@ -1,5 +1,6 @@
 package minhhieu.AddFriends.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,7 +57,7 @@ public class User {
 	private String confirmPassword;
 	
 	private String nickName;
-	private Date birthday;
+	private LocalDateTime birthday = LocalDateTime.now();
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)

@@ -1,5 +1,6 @@
 package minhhieu.AddFriends.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class UserDto {
 	private String confirmPassword;
 	
 	private String nickName;
-	private Date birthday;
+	private LocalDateTime birthday = LocalDateTime.now();
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)

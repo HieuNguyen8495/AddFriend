@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 public class ChangeNickNameDto {
 	@NotNull
-	@GeneratedValue
 	private int id;
 	
 	@NotNull

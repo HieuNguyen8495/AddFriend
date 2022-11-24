@@ -1,13 +1,11 @@
 package minhhieu.AddFriends.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +30,6 @@ public class UpdateUserDto {
 	@UniqueEmail(message = "{user.email.unique}")
 	private String email;
 	
-	private Date birthday;
+	private LocalDateTime birthday = LocalDateTime.now();
 	
 }

@@ -14,7 +14,6 @@ import minhhieu.AddFriends.model.User;
 @Getter
 @Setter
 public class FriendDto {
-
 	
 	@OneToOne
 	@JoinColumn(referencedColumnName = "id")

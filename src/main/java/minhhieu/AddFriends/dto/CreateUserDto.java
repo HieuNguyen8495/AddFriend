@@ -2,8 +2,6 @@
 
 import java.text.DateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,13 +9,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-
 import lombok.Getter;
 import lombok.Setter;
 import minhhieu.AddFriends.validation.annotation.ConfirmPassword;
@@ -46,7 +40,7 @@ public class CreateUserDto {
 	@CreatedDate
 //	@DateTimeFormat(pattern = DateUtils.Date_format)
 //	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.Date_format)
-	private Date birthday;
+	private LocalDateTime birthday = LocalDateTime.now();
 	
 	@Email(message = "{user.email.valid}")
 	@NotBlank(message = "{user.email.not-blank}")

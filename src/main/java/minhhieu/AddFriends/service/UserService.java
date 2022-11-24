@@ -17,7 +17,7 @@ import minhhieu.AddFriends.model.User;
 
 public interface UserService {
 	
-	List<User> findAllDto();
+	List<UserDto> findAllUsers();
 
 	UserDto addNewUser(CreateUserDto userDto);
 
