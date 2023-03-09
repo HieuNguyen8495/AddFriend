@@ -1,7 +1,7 @@
   package minhhieu.AddFriends.dto;
 
-import java.text.DateFormat;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,10 +37,8 @@ public class CreateUserDto {
 	
 	private String nickName;
 	
-	@CreatedDate
-//	@DateTimeFormat(pattern = DateUtils.Date_format)
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.Date_format)
-	private LocalDateTime birthday = LocalDateTime.now();
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private Date birthday;
 	
 	@Email(message = "{user.email.valid}")
 	@NotBlank(message = "{user.email.not-blank}")

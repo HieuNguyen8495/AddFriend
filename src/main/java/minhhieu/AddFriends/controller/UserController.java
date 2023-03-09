@@ -59,7 +59,7 @@ public class UserController {
 	@PutMapping
 	public UserDto updateUser(@Valid @RequestBody UpdateUserDto updateUserDto) {
 		UserDto updateUser = service.updateUser(updateUserDto , updateUserDto.getId());
-			return updateUser;
+		return updateUser;
 	}
 	
 	@DeleteMapping("/{user-id}")
@@ -68,14 +68,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/{user-id}/friends")
-	public UserDto addFriendToUser(@PathVariable("user-id") int userId, @Valid @RequestBody AddFriendDto dto) {
-		UserDto userFriend = service.addFriendId(dto, userId);
-  		  return userFriend; 
+	public FriendDto addFriendToUser(@PathVariable("user-id") int userId, @Valid @RequestBody AddFriendDto dto) {
+		FriendDto friendDto = service.addFriendId(dto, userId);
+  		return friendDto; 
 	}
 	
-	@PutMapping("/updatedNickName")
-	public FriendDto updatedNickname(@Valid @RequestBody ChangeNickNameDto dto) {
-		FriendDto updateNickname = service.updateNickname (dto);
-			return updateNickname;
+	@PutMapping("/{friend-id}")
+	public FriendDto updatedNickname(@PathVariable("friend-id") int friendId, @Valid @RequestBody ChangeNickNameDto dto) {
+		FriendDto updateNickname = service.updateNickname(dto, friendId);
+		return updateNickname;
 	}
 }

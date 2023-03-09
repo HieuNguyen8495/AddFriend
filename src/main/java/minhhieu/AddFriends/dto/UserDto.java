@@ -14,6 +14,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import minhhieu.AddFriends.model.Friend;
@@ -25,7 +27,6 @@ public class UserDto {
 	
 	@NotNull
 	@Size(min = 2, max = 50)
-//	@Column(unique = true)
 	private String userName;
 	
 	@NotNull
@@ -35,7 +36,9 @@ public class UserDto {
 	private String confirmPassword;
 	
 	private String nickName;
-	private LocalDateTime birthday = LocalDateTime.now();
+	
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private Date birthday;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)

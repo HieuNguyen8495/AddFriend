@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
 		List<UserDto> dtos = new ArrayList();
 		List<User> users = userRepo.findAll();
 		
-					
 		for (User u : users) {
 			UserDto dto = new UserDto();
 			dto.setUserName(u.getUserName());
@@ -62,8 +61,6 @@ public class UserServiceImpl implements UserService {
 		}).toList();
 		
 		return dtos;
-		
-		
 	}
 
 	@Override
@@ -85,7 +82,7 @@ public class UserServiceImpl implements UserService {
 	        userDto.setEmail(savedUser.getEmail());
 	        userDto.setNickName(savedUser.getNickName());
 	        userDto.setStatus(savedUser.getStatus());
-	        userDto.setBirthday(null);
+	        userDto.setBirthday(savedUser.getBirthday());
 	        
         return userDto;
 	}
@@ -106,12 +103,10 @@ public class UserServiceImpl implements UserService {
 		return  dto;
 	}
 
-	
 	@Override
 	public void deleteById(int userId) {
 		userRepo.deleteById(userId);
 	}
-
 
 	@Override
 	public boolean isExistedId(Integer userId) {
@@ -131,7 +126,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	@Override
-	public UserDto addFriendId(AddFriendDto dto, int userId2) {
+	public FriendDto addFriendId(AddFriendDto dto, int userId2) {
 		User myUser = userRepo.getById(userId2);
 		User targetFriend = userRepo.getById(dto.getFriendUserID());
 		String nickName = dto.getNickName();
@@ -140,22 +135,24 @@ public class UserServiceImpl implements UserService {
 		
 		User u = userRepo.save(myUser);
 		
-		UserDto userDto = new UserDto();
-			userDto.setNickName(myUser.getNickName());
+		FriendDto friendDto = new FriendDto();
+		friendDto.setUser(userId2);
+		friendDto.setFriendUser(targetFriend.getId());
+		friendDto.setNickName(myUser.getNickName());
 		
-		return userDto;
+		return friendDto;
 	}
 
     @Transactional
 	@Override
-	public FriendDto updateNickname(ChangeNickNameDto dto) {
-   		Friend newNickName = friendRepo.getById(dto.getId());
-   			newNickName.setNickName(dto.getNewNickName());
+	public FriendDto updateNickname(ChangeNickNameDto dto, int friendId) {
+   		Friend newNickName = friendRepo.getById(friendId);
+   		newNickName.setNickName(dto.getNewNickName());
    		
 		Friend fr = friendRepo.save(newNickName);
 		
 		FriendDto friendDto = new FriendDto();
-			friendDto.setNickName(fr.getNickName());
+		friendDto.setNickName(fr.getNickName());
 		
 		return friendDto;
 	}

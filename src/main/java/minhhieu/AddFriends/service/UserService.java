@@ -31,9 +31,9 @@ public interface UserService {
 
 	boolean isTakenEmail(String email);
 
-	UserDto addFriendId(AddFriendDto dto, int userId);
+	FriendDto addFriendId(AddFriendDto dto, int userId);
 
-	FriendDto updateNickname(ChangeNickNameDto dto);
+	FriendDto updateNickname(ChangeNickNameDto dto, int friendId);
 
 
 

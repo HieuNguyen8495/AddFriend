@@ -17,8 +17,6 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
-//				.securityContexts(Arrays.asList(securityContext()))
-//				.securitySchemes(Arrays.asList(apiKey()))
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("minhhieu.AddFriends"))
 				.build()
@@ -29,7 +27,6 @@ public class SwaggerConfig {
 		return new ApiInfoBuilder()
 				.title("Minh Hieu Application")
 				.description("This project is used for education purpose only.")
-				.contact(new Contact("Minh Hieu", "Hieu.dev", "contact@minhhieu.dev"))
 				.license("MIT2")
 				.build();
 	}

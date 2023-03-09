@@ -26,6 +26,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -47,7 +48,7 @@ public class User {
 	
 	@NotNull
 	@Size(min = 2, max = 50)
-//	@Column(unique = true)
+	@Column(unique = true)
 	private String userName;
 	
 	@NotNull
@@ -57,7 +58,8 @@ public class User {
 	private String confirmPassword;
 	
 	private String nickName;
-	private LocalDateTime birthday = LocalDateTime.now();
+	
+	private Date birthday ;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)

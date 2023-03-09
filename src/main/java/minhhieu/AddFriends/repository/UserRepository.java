@@ -16,9 +16,6 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Query("SELECT u FROM User u")
 	List<UserDto> findAllUserDto();
 	
-//	@Query("SELECT u FROM User u")
-//	List<UserDto> findAllUser();
-	
 	int countByUserName(String userName);
 
 	int countByEmail(String email);

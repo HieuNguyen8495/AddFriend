@@ -6,17 +6,17 @@ import javax.validation.Validator;
 
 import minhhieu.AddFriends.service.UserService;
 import minhhieu.AddFriends.util.ValidatorUtil;
-import minhhieu.AddFriends.validation.annotation.ExistUserId;
+import minhhieu.AddFriends.validation.annotation.UserIdExists;
 
-public class ExistUserIdValidator implements ConstraintValidator<ExistUserId, Integer> {
+public class UserIdExistsValidator implements ConstraintValidator<UserIdExists, Integer> {
 	private String message;
 	private UserService service;
 	
-	public ExistUserIdValidator(UserService userService) {
+	public UserIdExistsValidator(UserService userService) {
 		service = userService;
 	}
 	@Override
-	public void initialize(ExistUserId constraintAnnotation) {
+	public void initialize(UserIdExists constraintAnnotation) {
 		message = constraintAnnotation.message();
 	}
 
@@ -28,7 +28,6 @@ public class ExistUserIdValidator implements ConstraintValidator<ExistUserId, In
 		if(isExisted)
 			return true;
 		
-		ValidatorUtil.addError(context, message);
 		return false;
 	}
 

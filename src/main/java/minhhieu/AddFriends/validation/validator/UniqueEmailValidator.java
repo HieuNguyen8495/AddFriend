@@ -1,4 +1,4 @@
-package minhhieu.AddFriends.validation.validator;
+  package minhhieu.AddFriends.validation.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
